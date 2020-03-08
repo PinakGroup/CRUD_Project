@@ -42,6 +42,7 @@ public class FrontController{
         return blogService.deleteStoryById(id)?ResponseEntity.noContent().build():ResponseEntity.notFound().build();
     }
 
+
     @RequestMapping(method = RequestMethod.PUT,path = "/story")
     ResponseEntity<Story> updateStory(@RequestBody Story story){
         return blogService.updateStory(story)?ResponseEntity.noContent().build():ResponseEntity.notFound().build();

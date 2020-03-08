@@ -18,12 +18,15 @@ public class BlogService {
         return ret;
     }
 
+    List<Story> getStoriesByTitle(String title){
+        return storyRepository.findAllByTitle(title);
+    }
+
     Optional<Story> getStoryById(Long id){
         return storyRepository.findById(id);
     }
 
     Story createStory(Story story){
-        //System.out.println(story.getDate().toString());
         return storyRepository.save(story);
     }
 
