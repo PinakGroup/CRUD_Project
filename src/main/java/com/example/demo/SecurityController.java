@@ -18,6 +18,8 @@ public class SecurityController {
     private LoginUserDetailsService loginUserDetailsService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST, path = "/authenticate", consumes = {"application/json"})
     public ResponseEntity<?> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
@@ -33,5 +35,17 @@ public class SecurityController {
         final String jwtToken = jwtUtil.generateToken(loginUserDetailsService.loadUserByUsername(authenticationRequest.getUsername()));
         return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(jwtToken), HttpStatus.OK);
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/register", consumes = {"application/json"})
+    public ResponseEntity<BlogUser> registerUser(@RequestBody BlogUser blogUser) {
+        if(userService.checkUser(blogUser)){
+            return new ResponseEntity<BlogUser>(new BlogUser(),HttpStatus.CONFLICT);
+        }
+        else{
+            return new ResponseEntity<BlogUser>(userService.createUser(blogUser),HttpStatus.CREATED);
+        }
+    }
+
+
 
 }

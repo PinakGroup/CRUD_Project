@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BlogService {
+public class StoryService {
     @Autowired
-    public StoryRepo storyRepository;
+    public StoryRepository storyRepository;
 
     List<Story> getAllStories(){
         List<Story> ret = new ArrayList<Story>();

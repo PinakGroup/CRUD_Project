@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StoryRepo extends CrudRepository<Story,Long> {
+public interface StoryRepository extends CrudRepository<Story,Long> {
 
     public List<Story> findAllByTitle(String title);
 }
