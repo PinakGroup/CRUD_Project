@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,14 +24,28 @@ public class Story {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "user_name")
+    private BlogUser blogUser;
+
     public Story() {
 
     }
 
-    public Story(String title,String body) {
+    public BlogUser getBlogUser() {
+        return blogUser;
+    }
+
+    public void setBlogUser(BlogUser blogUser) {
+        this.blogUser = blogUser;
+    }
+
+    public Story(String title, String body, BlogUser blogUser) {
         this.title = title;
         this.body = body;
+        this.blogUser = blogUser;
     }
+
 
     public Long getId() {
         return id;

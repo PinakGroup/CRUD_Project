@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {BadCredentialsException.class, UsernameNotFoundException.class})
-    protected ResponseEntity<String> handleBadCredentialException(){
+    protected ResponseEntity<?> handleBadCredentialException(){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Request Unauthenticated");
     }
 
@@ -34,5 +35,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Request Forbidden");
     }
 
+    @ExceptionHandler(value = {AccessDeniedException.class})
+    protected ResponseEntity<String> handleAccessDeniedException(){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Request Forbidden");
+    }
 
 }

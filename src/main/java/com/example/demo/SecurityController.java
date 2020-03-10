@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SecurityController {
-
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -45,6 +44,8 @@ public class SecurityController {
             return new ResponseEntity<BlogUser>(userService.createUser(blogUser),HttpStatus.CREATED);
         }
     }
+
+
 
 
 

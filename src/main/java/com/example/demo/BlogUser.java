@@ -1,5 +1,11 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.Access;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -11,6 +17,7 @@ public class BlogUser {
     @Id
     private String username;
     @NotNull
+    @JsonIgnore
     private String password;
 
     public BlogUser() {
@@ -21,6 +28,11 @@ public class BlogUser {
         this.password = password;
     }
 
+    public BlogUser(UserDetails userDetails){
+        this.username = userDetails.getUsername();
+        this.password = userDetails.getPassword();
+    }
+
     public String getUsername() {
         return username;
     }
@@ -29,10 +41,12 @@ public class BlogUser {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
