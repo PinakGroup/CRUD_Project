@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.configure;
 
+import com.example.demo.service.LoginUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,11 +22,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private LoginUserDetailsService loginUserDetailsService;
 
     @Autowired
-    RequestFilter requestFilter;
+    private RequestFilter requestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginUserDetailsService);
+        auth.userDetailsService(loginUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -47,6 +49,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

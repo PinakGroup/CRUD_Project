@@ -1,4 +1,5 @@
-package com.example.demo;
+package com.example.demo.service;
+import com.example.demo.model.BlogUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,7 @@ public class LoginUserDetailsService implements UserDetailsService {
             return new User(blogUser.getUsername(), blogUser.getPassword(), new ArrayList<>());
         }
         else{
-            throw new UsernameNotFoundException("NOT FOUND");
+            throw new UsernameNotFoundException("Username Not Found");
         }
     }
 

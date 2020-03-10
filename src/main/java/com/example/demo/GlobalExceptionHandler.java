@@ -27,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {BadCredentialsException.class, UsernameNotFoundException.class})
     protected ResponseEntity<?> handleBadCredentialException(){
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Request Unauthenticated");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated User");
     }
 
     @ExceptionHandler(value = {JsonParseException.class})

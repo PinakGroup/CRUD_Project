@@ -1,4 +1,7 @@
-package com.example.demo;
+package com.example.demo.service;
+import com.example.demo.model.BlogUser;
+import com.example.demo.model.Story;
+import com.example.demo.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -13,27 +16,26 @@ public class StoryService {
     @Autowired
     public StoryRepository storyRepository;
 
-    List<Story> getAllStories(){
+    public List<Story> getAllStories(){
         List<Story> ret = new ArrayList<Story>();
         storyRepository.findAll().forEach(ret::add);
         return ret;
     }
 
-    List<Story> getStoriesByTitle(String title){
+    public List<Story> getStoriesByTitle(String title){
         return storyRepository.findAllByTitle(title);
     }
 
-    Optional<Story> getStoryById(Long id){
+    public Optional<Story> getStoryById(Long id){
         return storyRepository.findById(id);
     }
 
-    Story createStory(Story story, UserDetails userDetails){
-        System.out.println(userDetails.getUsername());
+    public Story createStory(Story story, UserDetails userDetails){
         story.setBlogUser(new BlogUser(userDetails));
         return storyRepository.save(story);
     }
 
-    boolean deleteStoryById(Long id,UserDetails userDetails) throws Exception{
+    public boolean deleteStoryById(Long id,UserDetails userDetails) throws Exception{
 
         Optional<Story> story = storyRepository.findById(id);
 
@@ -46,7 +48,7 @@ public class StoryService {
         }
         else return false;
     }
-    boolean updateStory(Story storyForUpdate,UserDetails userDetails) throws Exception{
+    public boolean updateStory(Story storyForUpdate,UserDetails userDetails) throws Exception{
 
         Optional<Story> story = storyRepository.findById(storyForUpdate.getId());
 

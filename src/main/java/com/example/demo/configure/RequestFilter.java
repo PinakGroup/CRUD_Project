@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.configure;
 
+import com.example.demo.service.JwtUtil;
+import com.example.demo.service.LoginUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

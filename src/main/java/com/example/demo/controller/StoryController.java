@@ -1,4 +1,6 @@
-package com.example.demo;
+package com.example.demo.controller;
+import com.example.demo.model.Story;
+import com.example.demo.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,7 @@ import java.util.List;
 @RestController
 public class StoryController {
     @Autowired
-    public StoryService storyService;
+    private StoryService storyService;
 
     @GetMapping(path = "/story", produces = {"application/json","application/xml"})
     ResponseEntity<List<Story>> getStories(){
