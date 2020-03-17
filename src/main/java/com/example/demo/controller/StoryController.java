@@ -8,17 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class StoryController {
     @Autowired
     private StoryService storyService;
 
     @GetMapping(path = "/story", produces = {"application/json","application/xml"})
-    ResponseEntity<List<Story>> getStories(){
-        return new ResponseEntity<>(storyService.getAllStories(), HttpStatus.OK);
+    ResponseEntity<List<Story>> getStories(@RequestParam("num") int pageNumber, @RequestParam("size") int pageSize){
+        return new ResponseEntity<>(storyService.getAllStories(pageNumber, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(path = "/story/{id}",produces = {"application/json","application/xml"})

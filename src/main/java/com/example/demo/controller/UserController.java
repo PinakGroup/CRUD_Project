@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.model.AuthenticationRequest;
 import com.example.demo.model.AuthenticationResponse;
 import com.example.demo.model.BlogUser;
@@ -14,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class UserController {
     @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     private JwtUtil jwtUtil;
     @Autowired
     private UserService userService;
-
+    
     @RequestMapping(method = RequestMethod.POST, path = "/authenticate", consumes = {"application/json"})
     public ResponseEntity<?> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
         try {
@@ -49,9 +49,4 @@ public class UserController {
             return new ResponseEntity<BlogUser>(userService.createUser(blogUser),HttpStatus.CREATED);
         }
     }
-
-
-
-
-
 }

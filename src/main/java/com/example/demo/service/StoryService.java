@@ -3,6 +3,8 @@ import com.example.demo.model.BlogUser;
 import com.example.demo.model.Story;
 import com.example.demo.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,10 @@ public class StoryService {
     @Autowired
     public StoryRepository storyRepository;
 
-    public List<Story> getAllStories(){
+    public List<Story> getAllStories(int pageNumber,int pageSize){
         List<Story> ret = new ArrayList<Story>();
-        storyRepository.findAll().forEach(ret::add);
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        storyRepository.findAll(pageable).forEach(ret::add);
         return ret;
     }
 
@@ -48,6 +51,7 @@ public class StoryService {
         }
         else return false;
     }
+
     public boolean updateStory(Story storyForUpdate,UserDetails userDetails) throws Exception{
 
         Optional<Story> story = storyRepository.findById(storyForUpdate.getId());
