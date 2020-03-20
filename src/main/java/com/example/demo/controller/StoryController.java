@@ -17,7 +17,7 @@ public class StoryController {
     private StoryService storyService;
 
     @GetMapping(path = "/story", produces = {"application/json","application/xml"})
-    ResponseEntity<List<Story>> getStories(@RequestParam("num") int pageNumber, @RequestParam("size") int pageSize){
+    ResponseEntity<Iterable<Story>> getStories(@RequestParam("num") int pageNumber, @RequestParam("size") int pageSize){
         return new ResponseEntity<>(storyService.getAllStories(pageNumber, pageSize), HttpStatus.OK);
     }
 

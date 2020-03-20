@@ -3,8 +3,10 @@ import com.example.demo.model.BlogUser;
 import com.example.demo.model.Story;
 import com.example.demo.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,12 @@ public class StoryService {
     @Autowired
     public StoryRepository storyRepository;
 
-    public List<Story> getAllStories(int pageNumber,int pageSize){
+    public Page<Story> getAllStories(int pageNumber, int pageSize){
         List<Story> ret = new ArrayList<Story>();
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
-        storyRepository.findAll(pageable).forEach(ret::add);
-        return ret;
+        Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by("date").descending());
+        //storyRepository.findAll(pageable).forEach(ret::add);
+
+        return storyRepository.findAll(pageable);
     }
 
     public List<Story> getStoriesByTitle(String title){

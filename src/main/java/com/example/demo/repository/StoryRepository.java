@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StoryRepository extends CrudRepository<Story,Long> {
+public interface StoryRepository extends PagingAndSortingRepository<Story,Long> {
     public List<Story> findAllByTitle(String title);
-    public List<Story> findAll(Pageable pageable);
 }
