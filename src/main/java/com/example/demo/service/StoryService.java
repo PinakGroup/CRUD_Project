@@ -24,7 +24,6 @@ public class StoryService {
         List<Story> ret = new ArrayList<Story>();
         Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by("date").descending());
         //storyRepository.findAll(pageable).forEach(ret::add);
-
         return storyRepository.findAll(pageable);
     }
 
