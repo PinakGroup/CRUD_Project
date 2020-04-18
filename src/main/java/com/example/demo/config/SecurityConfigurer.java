@@ -32,6 +32,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/downloadFile/**").permitAll()
+                .antMatchers("/uploadFile").permitAll()
                 .antMatchers(HttpMethod.GET, "/story/**").permitAll()
                 .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()

@@ -1,11 +1,9 @@
 package com.example.demo.model;
 
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -20,6 +18,8 @@ public class Story {
     @Lob
     @NotNull
     private String body;
+
+    private String fileName;
 
     @UpdateTimestamp
     @Temporal(TemporalType.DATE)
@@ -78,5 +78,13 @@ public class Story {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

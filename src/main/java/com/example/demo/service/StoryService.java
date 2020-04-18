@@ -18,7 +18,10 @@ import java.util.Optional;
 @Service
 public class StoryService {
     @Autowired
-    public StoryRepository storyRepository;
+    private StoryRepository storyRepository;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     public Page<Story> getAllStories(int pageNumber, int pageSize){
         List<Story> ret = new ArrayList<Story>();
@@ -48,6 +51,8 @@ public class StoryService {
             if(!story.get().getBlogUser().getUsername().equals(userDetails.getUsername())){
                 throw new AccessDeniedException("Forbidden");
             }
+
+            fileStorageService.deleteFile(story.get().getFileName());
             storyRepository.deleteById(id);
             return true;
         }
@@ -64,6 +69,7 @@ public class StoryService {
             }
 
             storyForUpdate.setBlogUser(story.get().getBlogUser());
+            if(story.get().getFileName()!=null) storyForUpdate.setFileName(story.get().getFileName());
             storyRepository.save(storyForUpdate);
             return true;
         }
